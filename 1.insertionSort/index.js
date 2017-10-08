@@ -1,6 +1,6 @@
 let arr = [12, 1 , 2, 4, 5, 6, 7]
 
-function inlineSort(arr) {
+function insertionSort(arr) {
 	let key;
 	let res = arr;
 	let i;
@@ -30,3 +30,7 @@ function inlineSort(arr) {
 // res (7) [1, 2, 4, 12, 12, 6, 7]
 // res (7) [1, 2, 4, 5, 12, 12, 7]
 // res (7) [1, 2, 4, 5, 6, 12, 12]
+
+
+Complexity:
+O(n^2)
