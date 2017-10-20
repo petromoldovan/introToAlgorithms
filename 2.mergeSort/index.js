@@ -1,49 +1,51 @@
 let Arr = [1, 4, 10, 2, 6, 20]
+let Arr2 = [5,78,9,3,21,2]
 
-function merge(Arr, startCell, middleCell, lastCell) {
-	let leftArr = [];
-	let rightArr = [];
-
-	for (let i = 0; i < middleCell; i++) {
-		leftArr.push(Arr[i])
-	}
-	for (let j = middleCell; j <= lastCell; j++) {
-		rightArr.push(Arr[j])
+function mergeSort(arr) {
+	if (arr.length === 1) {
+		return arr
 	}
 
-	let leftIDX = 0;
-	let rightIDX = 0;
-	let res = [];
-	for (let loopIDX = 0; loopIDX < lastCell; loopIDX++) {
-		if (leftArr[leftIDX] <= rightArr[rightIDX]) {
-			res.push(leftArr[leftIDX])
-			leftIDX++
+	let middle = Math.floor(arr.length / 2)
+	let left = arr.slice(0, middle)
+	let right = arr.slice(middle)
+
+	return merge(mergeSort(left), mergeSort(right))
+}
+
+function merge(left, right) {
+	let res = []
+	let leftIDX = 0
+	let rightIDX = 0
+
+	while (leftIDX < left.length || rightIDX < right.length) {
+		if (leftIDX < left.length && rightIDX < right.length){
+			if (left[leftIDX] < right[rightIDX]){
+				res.push(left[leftIDX]);
+				leftIDX++;
+			}else{
+				res.push(right[rightIDX]);
+				rightIDX++
+			}
+		} else if (leftIDX < left.length){
+			res.push(left[leftIDX]);
+			leftIDX++;
+		} else{
+			res.push(right[rightIDX]);
+			rightIDX++;
 		}
-		else {
-			res.push(rightArr[rightIDX])
-			rightIDX++
-		}
 	}
+
+	console.log("res", res)
 
 	return res;
 }
 
-function MergeSort(Arr, startCell, endCell) {
-	const newArr = Arr;
+mergeSort(Arr)
 
-	console.log("startCell", startCell)
-	console.log("endCell", endCell)
 
-	if (startCell < endCell && endCell > 1) {
-		let middleCell = (endCell - startCell + 1) / 2
+//Principle:
+//Divide the initial arr into subarrays(down to arrays with just one number in left and right arrays)
+//and then merge them into the final array recursively.
 
-		MergeSort(newArr, startCell, middleCell)
-		MergeSort(newArr, middleCell + 1, endCell)
-
-		merge(newArr, startCell, middleCell, newArr.length)
-	}
-}
-
-let Arr2 = [5,78,9,3,21,2]
-
-MergeSort(Arr2, 0, 5)
+Complexity: О(ln n)
